@@ -1,4 +1,7 @@
 import streamlit as st
 
-st.set_page_config(page_title="Primeras pruebas", layout="centered")
-st.title("Primeras pruebas 2 :+1:")
+st.title("Multiplicación de numeros")
+num1 = st.input("Dame el primer numero")
+num2 = st.input("Dame el segundo numero")
+resultado=num1 * num2
+st.print("El Resultado es: {resultado}")
