@@ -9,11 +9,11 @@ openai_api_key = st.secrets["api_key"]
 client = OpenAI(api_key=openai_api_key)
 
 prompt = st.chat_input("¿De que hablaremos hoy?")
-#if prompt==None:
-#   st.stop()
+if prompt==None:
+   st.stop()
 
-#with st.chat_message("user"):
-#   st.markdown(prompt)
+with st.chat_message("abatar = 🦖"):
+   st.markdown(prompt)
 
 # Generate a response using the OpenAI API.
 
