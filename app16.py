@@ -12,7 +12,7 @@ prompt = st.chat_input("¿De que hablaremos hoy?")
 if prompt==None:
    st.stop()
 
-with st.chat_message("user","abatar = 🦖"):
+with st.chat_message("user", avatar = "🦖"):
    st.markdown(prompt)
 
 # Generate a response using the OpenAI API.
