@@ -1,48 +1,56 @@
 import streamlit as st
 from openai import OpenAI
+from pathlib import Path
 
-
-# Show title and description.
+# Sidebar con información
 st.sidebar.title("💬 La Vieja Confiable AV")
 st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Escudo_UACH.svg/1200px-Escudo_UACH.svg.png")
 st.sidebar.write("Asistente elaborado por Edgar Francisco Ordoñez Bencomo")
-openai_api_key = st.secrets["api_key"] 
-contexto = st.read("contexto.cvs")
-st.sidebar.write("contenido del archivo", contexto)
-# Create an OpenAI client.
+
+# Obtener la API key desde el archivo .streamlit/secrets.toml
+openai_api_key = st.secrets["api_key"]
+
+# Leer archivos del repositorio local
+contexto_path = Path("contexto.csv")
+referencia_path = Path("negocios.pdf")  # Ejemplo: otro archivo con información a la que se debe apegar
+
+contexto = contexto_path.read_text(encoding="utf-8") if contexto_path.exists() else "Archivo de contexto no encontrado."
+referencia = referencia_path.read_text(encoding="utf-8") if referencia_path.exists() else "Archivo de referencia no encontrado."
+
+st.sidebar.subheader("Contexto:")
+st.sidebar.code(contexto, language="text")
+
+# Crear cliente OpenAI
 client = OpenAI(api_key=openai_api_key)
 
-# Create a session state variable to store the chat messages. This ensures that the
-# messages persist across reruns.
+# Inicializar mensajes de sesión
 if "messages" not in st.session_state:
-     st.session_state.messages = []
+    st.session_state.messages = [
+        {"role": "system", "content": f"Este asistente debe comportarse según el siguiente contexto:\n{contexto}\n\nY debe seguir las siguientes referencias:\n{referencia}"}
+    ]
 
-# Display the existing chat messages via `st.chat_message`.
+# Mostrar mensajes anteriores
 for message in st.session_state.messages:
-   with st.chat_message(message["role"]):
+    with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Create a chat input field to allow the user to enter a message. This will display
-# automatically at the bottom of the page.
+# Entrada del usuario
 if prompt := st.chat_input("Platiquemos"):
-
-    # Store and display the current prompt.
+    # Agregar mensaje del usuario
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Generate a response using the OpenAI API.
+    # Solicitar respuesta al modelo
     stream = client.chat.completions.create(
         model="gpt-3.5-turbo",
-        messages=[
-            {"role": m["role"], "content": m["content"]}
-            for m in st.session_state.messages
-        ],
+        messages=st.session_state.messages,
         stream=True,
     )
 
-    # Stream the response to the chat using `st.write_stream`, then store it in 
-    # session state.
+    # Mostrar respuesta en tiempo real
     with st.chat_message("assistant"):
         response = st.write_stream(stream)
+
+    # Guardar respuesta
     st.session_state.messages.append({"role": "assistant", "content": response})
