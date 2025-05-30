@@ -29,8 +29,8 @@ referencia_path = Path("Negocios.pdf")
 contexto = contexto_path.read_text(encoding="utf-8") if contexto_path.exists() else "Archivo de contexto no encontrado."
 referencia = leer_pdf(referencia_path) if referencia_path.exists() else "Archivo de referencia no encontrado."
 
-st.sidebar.subheader("Contexto:")
-st.sidebar.code(contexto, language="text")
+#st.sidebar.subheader("Contexto:")
+#st.sidebar.code(contexto, language="text")
 
 # Crear cliente OpenAI
 client = OpenAI(api_key=openai_api_key)
