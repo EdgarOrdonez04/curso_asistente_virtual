@@ -4,7 +4,7 @@ from openai import OpenAI
 
 # Show title and description.
 st.sidebar.title("💬 La Vieja Confiable AV")
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Escudo_UACH.svg/1200px-Escudo_UACH.svg.png",andcho= 50)
+st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Escudo_UACH.svg/1200px-Escudo_UACH.svg.png",,andcho = 50)
 openai_api_key = st.secrets["api_key"] 
 # Create an OpenAI client.
 client = OpenAI(api_key=openai_api_key)
