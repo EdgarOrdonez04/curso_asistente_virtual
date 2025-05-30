@@ -3,7 +3,7 @@ from openai import OpenAI
 
 
 # Show title and description.
-st.title("💬 Asistente Virtual La Vieja Confiable")
+st.title("💬 AV La Vieja Confiable")
 
 openai_api_key = st.secrets["api_key"] 
 # Create an OpenAI client.
