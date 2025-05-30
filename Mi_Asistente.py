@@ -23,31 +23,34 @@ def leer_pdf(path):
         return f"Error al leer PDF: {e}"
 
 # Leer archivos locales
-contexto_path = Path("contexto.cvs")
+contexto_path = Path("contexto.csv")
 referencia_path = Path("Negocios.pdf")
 
 contexto = contexto_path.read_text(encoding="utf-8") if contexto_path.exists() else "Archivo de contexto no encontrado."
 referencia = leer_pdf(referencia_path) if referencia_path.exists() else "Archivo de referencia no encontrado."
-
-#st.sidebar.subheader("Contexto:")
-#st.sidebar.code(contexto, language="text")
 
 # Crear cliente OpenAI
 client = OpenAI(api_key=openai_api_key)
 
 # Inicializar mensajes de sesión
 if "messages" not in st.session_state:
-    st.session_state.messages = [
-        {
-            "role": "system",
-            "content": f"Este asistente debe comportarse según el siguiente contexto:\n{contexto}\n\nY debe seguir las siguientes referencias extraídas del archivo PDF:\n{referencia}"
-        }
-    ]
+    st.session_state.messages = []
 
-# Mostrar mensajes anteriores
+# Instrucciones internas para la IA (no se muestran al usuario)
+instrucciones = {
+    "role": "system",
+    "content": f"Este asistente debe comportarse según el siguiente contexto:\n{contexto}\n\nY debe seguir las siguientes referencias:\n{referencia}"
+}
+
+# Asegurar que el mensaje del sistema esté al inicio
+if not any(msg["role"] == "system" for msg in st.session_state.messages):
+    st.session_state.messages.insert(0, instrucciones)
+
+# Mostrar mensajes previos, excepto el mensaje del sistema
 for message in st.session_state.messages:
-    with st.chat_message(message["role"]):
-        st.markdown(message["content"])
+    if message["role"] != "system":
+        with st.chat_message(message["role"]):
+            st.markdown(message["content"])
 
 # Entrada del usuario
 if prompt := st.chat_input("Platiquemos"):
