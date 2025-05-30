@@ -12,7 +12,7 @@ openai_api_key = st.secrets["api_key"]
 
 # Leer archivos del repositorio local
 contexto_path = Path("contexto.csv")
-referencia_path = Path("negocios.pdf")  # Ejemplo: otro archivo con información a la que se debe apegar
+referencia_path = Path("Negocios.pdf")  # Ejemplo: otro archivo con información a la que se debe apegar
 
 contexto = contexto_path.read_text(encoding="utf-8") if contexto_path.exists() else "Archivo de contexto no encontrado."
 referencia = referencia_path.read_text(encoding="utf-8") if referencia_path.exists() else "Archivo de referencia no encontrado."
