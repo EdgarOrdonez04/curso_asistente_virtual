@@ -23,7 +23,7 @@ def leer_pdf(path):
         return f"Error al leer PDF: {e}"
 
 # Leer archivos locales
-contexto_path = Path("contexto.csv")
+contexto_path = Path("contexto.cvs")
 referencia_path = Path("Negocios.pdf")
 
 contexto = contexto_path.read_text(encoding="utf-8") if contexto_path.exists() else "Archivo de contexto no encontrado."
