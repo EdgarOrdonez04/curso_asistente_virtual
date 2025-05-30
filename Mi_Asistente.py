@@ -4,7 +4,7 @@ from pathlib import Path
 import fitz  # PyMuPDF para leer PDFs
 
 # Sidebar con información
-st.sidebar.title("💬 La Vieja Confiable AV")
+st.sidebar.title("🤖💬 Negocios por Internet Asistente virtual ")
 st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Escudo_UACH.svg/1200px-Escudo_UACH.svg.png")
 st.sidebar.write("Asistente elaborado por Edgar Francisco Ordoñez Bencomo")
 
