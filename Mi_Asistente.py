@@ -64,7 +64,7 @@ if prompt := st.chat_input("Platiquemos"):
 #
 #Contenido de referencia del documento 'Innovación en los Negocios':\n{referencia}
 #"""
- #   }
+   }
 
     # Armar mensaje para enviar al modelo
     mensajes_para_enviar = [system_message] + st.session_state.messages
