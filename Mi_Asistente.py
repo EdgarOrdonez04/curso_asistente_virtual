@@ -46,7 +46,7 @@ for message in st.session_state.messages:
 if prompt := st.chat_input("Platiquemos"):
     # Agregar mensaje del usuario
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="🧠"):
         st.markdown(prompt)
 
     # Reforzar el mensaje system cada vez
