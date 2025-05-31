@@ -77,6 +77,6 @@ Contenido de referencia del documento 'Innovación en los Negocios':\n{referenci
     )
 
     # Mostrar respuesta y guardarla
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="🤖"):
         response = st.write_stream(stream)
     st.session_state.messages.append({"role": "assistant", "content": response})
