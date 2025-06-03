@@ -71,7 +71,7 @@ Contenido de referencia del documento 'Innovación en los Negocios':\n{referenci
 
     # Solicitar respuesta al modelo
     stream = client.chat.completions.create(
-        model="gpt-3.5-turbo",
+        model="gpt-4.1-mini",
         messages=mensajes_para_enviar,
         stream=True,
     )
